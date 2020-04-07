@@ -1,0 +1,18 @@
+Main Display Port firmware project.
+
+[ How to read FW version ? ]
+
+Version of binary is stored in two 8b registers: SW_VER_H and SW_VER_L.
+Version is represented by 3 values (major, minor and update), but in registers is stored in decimal format. Example:
+
+version = SW_VER_H << 8 | SW_VER_L = 20000
+
+| major | minor | update |
+|   2   |  00   |   00   |
+
+Version number is 2.0.0
+
+Numbers in decimal format (XYYZZ) of version could be presented symbolic as:
+X - major number
+YY - minor number
+ZZ - update number

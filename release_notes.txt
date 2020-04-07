@@ -1,0 +1,6 @@
+[unreleased]
+v2.0.0
+- Refactored code to comply with static code analysis restrictions (MISRA & HIS)
+- Firware version and revision of repo used to generate binary are stored in registers
+- Xtensa tools updated
+- Fixed bug of little timeout for AUX transactions

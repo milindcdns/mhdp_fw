@@ -1,0 +1,25 @@
+This software contains:
+
+SSL Library is licensed under the Apache License, Version 2.0. A copy of the Apache License, Version 2.0 can be found at http://www.apache.org/licenses/LICENSE-2.0.
+The original source code for SSL Library can is available here: https://tls.mbed.org/download
+
+# TODO DK: I did not found any references to that in FW. Remove?
+Fast discrete Fourier and cosine transforms and inverses
+author: Monty <xiphmont@mit.edu>
+modifications by: Monty
+last modification date: Jul 1 1996
+
+/* These Fourier routines were originally based on the Fourier
+routines of the same names from the NETLIB bihar and fftpack
+fortran libraries developed by Paul N. Swarztrauber at the National
+Center for Atmospheric Research in Boulder, CO USA.  They have been
+reimplemented in C and optimized in a few ways for OggSquish. */
+
+/* As the original fortran libraries are public domain, the C Fourier
+routines in this file are hereby released to the public domain as
+well.  The C routines here produce output exactly equivalent to the
+original fortran routines.  Of particular interest are the facts
+that (like the original fortran), these routines can work on
+arbitrary length vectors that need not be powers of two in
+length. */
+
