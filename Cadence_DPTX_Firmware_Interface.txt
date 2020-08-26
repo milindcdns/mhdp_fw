@@ -812,13 +812,13 @@ The following sections describe the message field of the mailbox data structure.
  |        |                |                               |         |   3    |  -  | Register address  |
  |        |                |                               |         |        |     | [07:00]           |
  |        |                |                               |         +--------+-----+-------------------+
- |        |                |                               |         |   6    |  -  | Value [31:24]     |
+ |        |                |                               |         |   4    |  -  | Value [31:24]     |
  |        |                |                               |         +--------+-----+-------------------+
- |        |                |                               |         |   7    |  -  | Value [23:16]     |
+ |        |                |                               |         |   5    |  -  | Value [23:16]     |
  |        |                |                               |         +--------+-----+-------------------+
- |        |                |                               |         |   8    |  -  | Value [15:08]     |
+ |        |                |                               |         |   6    |  -  | Value [15:08]     |
  |        |                |                               |         +--------+-----+-------------------+
- |        |                |                               |         |   9    |  -  | Value [07:00]     |
+ |        |                |                               |         |   7    |  -  | Value [07:00]     |
  +--------+----------------+-------------------------------+---------+--------+-----+-------------------+
                                   Table 6: General Command Responses 
 
@@ -1045,7 +1045,7 @@ The following sections describe the message field of the mailbox data structure.
  |        |                | SAPB bus, the number of       |         |   1    |  -  | Number of written | 
  |        |                | bytes will be 0 and no AUX    |         |        |     | bytes (LSB)       |
  |        |                | transaction will be performed.|         +--------+-----+-------------------+
- | 0x04   | DPCD_WRITE     | In case of error (number of   | 5       |   2    | -   | Address[24:16]    |
+ | 0x04   | WRITE_DPCD     | In case of error (number of   | 5       |   2    | -   | Address[24:16]    |
  |        |                | bytes/address is different    |         +--------+-----+-------------------+
  |        |                | than requested),              |         |   3    | -   | Address[15:08]    |
  |        |                | GET_LAST_AUX_STAUS may.       |         +--------+-----+-------------------+
@@ -1057,18 +1057,37 @@ The following sections describe the message field of the mailbox data structure.
  | 0x08   |                |                               |         |        |     |                   |
  | 0x09   |                |                               |         |        |     |                   |
  +--------+----------------+-------------------------------+---------+--------+-----+-------------------+ 
- |        |                |                               |         |        |  0  | HPD High          | 
+ |        |                |                               |         |        |  0  | Set means last    |
+ |        |                |                               |         |        |     | event was a       |
+ |        |                |                               |         |        |     | Plugged event-HPD |
+ |        |                |                               |         |        |     | line change to    |
+ |        |                |                               |         |        |     | High. This bit is |
+ |        |                |                               |         |        |     | cleared after read| 
  |        |                |                               |         |        +-----+-------------------+
- |        |                | Each bit reprensents event    |         |        |  1  | HPD low           |
- |        |                | reported by internal uCPU.    |  1      |   0    +-----+-------------------+
- | 0x0A   | READ_EVENT     | If bit is set to 1 event is   |         |        |  2  | HPD line pulse    |
- |        |                | reported.                     |         |        +-----+-------------------+
- |        |                |                               |         |        |  3  | HPD Line Current  |
- |        |                |                               |         |        |     | state             |
- |        |                |                               |         |        |     | Used with HPD High|
- |        |                |                               |         |        |     | and HPD pulse to  |
- |        |                |                               |         |        |     | determine HPD     |
- |        |                |                               |         |        |     | state.            | 
+ |        |                | Each bit represents an event  |         |        |  1  | Set means last    | 
+ |        |                | Bit set means event has       |	     |        |	    | event was a       |
+ |        |                | occurred.                     |         |        |     | Unplugged Event   | 
+ |        |                |                               |         |        |     | -HPD line change  |
+ |        |                | Bit 0, 1, 2 are cleared after |         |        |     | to low. This bit  |
+ |  0x0A  |  READ_EVENT    | read.                         |         |        |     | is cleared after  |
+ |        |                |                               |         |        |     | read.             |
+ |        |                |                               |  1      |   0    +-----+-------------------+
+ |        |                |                               |         |        |  2  | Set means last    |
+ |        |                |                               |         |        |     | event was IRQ HPD |
+ |        |                |                               |         |        |     | Pulse. This bit is|
+ |        |                |                               |         |        |     | cleared after read|
+ |        |                |                               |         |        +-----+-------------------+
+ |        |                |                               |         |        |  3  |HPD Line Current   | 
+ |        |                |                               |         |        |     |state. This bit    |
+ |        |                |                               |         |        |     |indicates the      |
+ |        |                |                               |         |        |     |active state of the|
+ |        |                |                               |         |        |     |line.              |
+ |        |                |                               |         |        |     |0- Reset means the |
+ |        |                |                               |         |        |     |the HPD line is in |
+ |        |                |                               |         |        |     |unplugged state.   |                   
+ |        |                |                               |         |        |     |1- Set means the   |
+ |        |                |                               |         |        |     |HPD line is in     | 
+ |        |                |                               |         |        |     |plugged state      |
  |        |                |                               |         |        +-----+-------------------+
  |        |                |                               |         |        | 7:4 | RESERVED          |
  +--------+----------------+-------------------------------+---------+--------+-----+-------------------+ 
